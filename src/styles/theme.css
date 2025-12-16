@@ -1,0 +1,208 @@
+/* src/styles/theme.css */
+
+/* ============================================
+   Theme Variables Extended
+   ============================================ */
+
+/* Light Theme (for future use) */
+[data-theme="light"] {
+    --bg-primary: #f8fafc;
+    --bg-secondary: #f1f5f9;
+    --bg-tertiary: #e2e8f0;
+    --bg-card: #ffffff;
+    --bg-elevated: #ffffff;
+
+    --text-primary: #0f172a;
+    --text-secondary: #475569;
+    --text-tertiary: #64748b;
+    --text-muted: #94a3b8;
+
+    --border-color: rgba(0, 0, 0, 0.08);
+    --border-light: rgba(0, 0, 0, 0.12);
+
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+    --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.12);
+    --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.16);
+}
+
+/* Dark Theme (default) */
+[data-theme="dark"] {
+    --bg-primary: #0a0a0f;
+    --bg-secondary: #12121a;
+    --bg-tertiary: #1a1a28;
+    --bg-card: #16161f;
+    --bg-elevated: #1e1e2d;
+
+    --text-primary: #f1f5f9;
+    --text-secondary: #94a3b8;
+    --text-tertiary: #64748b;
+    --text-muted: #475569;
+
+    --border-color: rgba(255, 255, 255, 0.08);
+    --border-light: rgba(255, 255, 255, 0.12);
+}
+
+/* ============================================
+   Language-Specific Font Support
+   ============================================ */
+
+/* Tamil */
+.lang-ta,
+[lang="ta"] {
+    font-family: 'Noto Sans Tamil', 'Latha', 'Vijaya', sans-serif;
+}
+
+/* Hindi */
+.lang-hi,
+[lang="hi"] {
+    font-family: 'Noto Sans Devanagari', 'Mangal', 'Kokila', sans-serif;
+}
+
+/* Russian */
+.lang-ru,
+[lang="ru"] {
+    font-family: 'Inter', 'Roboto', 'Arial', sans-serif;
+}
+
+/* Japanese */
+.lang-ja,
+[lang="ja"] {
+    font-family: 'Noto Sans JP', 'Hiragino Kaku Gothic Pro', 'Meiryo', sans-serif;
+}
+
+/* Spanish */
+.lang-es,
+[lang="es"] {
+    font-family: 'Inter', 'Roboto', 'Arial', sans-serif;
+}
+
+/* ============================================
+   Gradient Definitions
+   ============================================ */
+
+.gradient-primary {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+}
+
+.gradient-text {
+    background: linear-gradient(135deg, var(--primary-light), var(--secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.gradient-border {
+    position: relative;
+    background: var(--bg-card);
+}
+
+.gradient-border::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    padding: 2px;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    border-radius: inherit;
+    pointer-events: none;
+}
+
+/* ============================================
+   Glass Morphism Effects
+   ============================================ */
+
+.glass {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.glass-dark {
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* ============================================
+   Neumorphism Effects
+   ============================================ */
+
+.neu-raised {
+    background: var(--bg-tertiary);
+    box-shadow:
+        8px 8px 16px rgba(0, 0, 0, 0.4),
+        -8px -8px 16px rgba(255, 255, 255, 0.05);
+}
+
+.neu-inset {
+    background: var(--bg-tertiary);
+    box-shadow:
+        inset 4px 4px 8px rgba(0, 0, 0, 0.4),
+        inset -4px -4px 8px rgba(255, 255, 255, 0.05);
+}
+
+/* ============================================
+   Focus States & Accessibility
+   ============================================ */
+
+:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+}
+
+.focus-ring:focus-visible {
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.4);
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+    :root {
+        --border-color: rgba(255, 255, 255, 0.3);
+        --text-secondary: #b0b0b0;
+    }
+}
+
+/* ============================================
+   Print Styles
+   ============================================ */
+
+@media print {
+
+    .app-header,
+    .steps-indicator,
+    .action-buttons,
+    .download-panel,
+    .toast-container {
+        display: none !important;
+    }
+
+    .app-container {
+        background: white;
+    }
+
+    .result-viewer {
+        border: 1px solid #ccc;
+    }
+
+    .panel-content {
+        color: black;
+    }
+}
