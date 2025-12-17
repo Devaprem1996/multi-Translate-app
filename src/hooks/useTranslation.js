@@ -9,8 +9,16 @@ export function useTranslation() {
     const [isTranslating, setIsTranslating] = useState(false);
     const [error, setError] = useState(null);
 
-    // Smart Chunking Algorithm
-    const smartChunkText = (text, maxSize = 300) => { // Reduced to 300 to ensure reliable translation of dense Indic scripts
+    // Smart Chunking Algorithm with Adaptive Sizing
+    const smartChunkText = (text) => {
+        // Adaptive Logic:
+        // If text is small (< 2000 chars), we can try larger chunks (up to 1500) for speed.
+        // If text is large, we stay safe with smaller chunks (300) to avoid timeouts/limits.
+        const totalLength = text.length;
+        const maxSize = totalLength < 2000 ? 1500 : 300;
+
+        console.log(`Adaptive Chunking: Total Length ${totalLength}, Using MaxSize ${maxSize}`);
+
         const chunks = [];
         // Split by paragraphs (double newlines) to preserve structure
         const paragraphs = text.split(/\n\s*\n/);

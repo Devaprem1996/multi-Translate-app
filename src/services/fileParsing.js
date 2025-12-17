@@ -3,7 +3,8 @@ import * as pdfjsLib from 'pdfjs-dist';
 import mammoth from 'mammoth';
 
 // Configure PDF.js worker
-pdfjsLib.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjsLib.version}/build/pdf.worker.min.js`;
+import pdfWorker from 'pdfjs-dist/build/pdf.worker.min.mjs?url';
+pdfjsLib.GlobalWorkerOptions.workerSrc = pdfWorker;
 
 /**
  * Extracts text from various file formats
@@ -48,11 +49,27 @@ async function parsePdf(file) {
     for (let i = 1; i <= pdf.numPages; i++) {
         const page = await pdf.getPage(i);
         const textContent = await page.getTextContent();
-        const pageText = textContent.items.map(item => item.str).join(' ');
+
+        let lastStr = '';
+        const pageText = textContent.items
+            .map(item => item.str)
+            .filter(str => {
+                // Filter out empty strings
+                if (!str.trim()) return false;
+                // Filter out exact duplicates (common in PDF for bolding effects)
+                if (str === lastStr) return false;
+                lastStr = str;
+                return true;
+            })
+            .join(' ');
+
         fullText += pageText + '\n\n';
     }
 
-    return { text: fullText.trim(), type: 'pdf' };
+    // Clean up excessive whitespace
+    fullText = fullText.replace(/\s+/g, ' ').replace(/\n\s*\n/g, '\n\n').trim();
+
+    return { text: fullText, type: 'pdf' };
 }
 
 async function parseDocx(file) {

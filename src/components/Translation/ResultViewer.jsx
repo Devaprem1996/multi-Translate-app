@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 
 export function ResultViewer({ result, originalFile, targetLanguage }) {
-    const [viewMode, setViewMode] = useState('side-by-side'); // 'side-by-side', 'translated', 'original'
+    const [viewMode, setViewMode] = useState('translated'); // 'side-by-side', 'translated', 'original'
     const [fontSize, setFontSize] = useState('medium'); // 'small', 'medium', 'large'
 
     const fontSizes = {
@@ -15,18 +15,35 @@ export function ResultViewer({ result, originalFile, targetLanguage }) {
         <div className="result-viewer">
             {/* Toolbar */}
             <div className="viewer-toolbar">
+                {/* View Controls */}
+                <div className="view-controls">
+                    <button
+                        className={`view-btn ${viewMode === 'translated' ? 'active' : ''}`}
+                        onClick={() => setViewMode('translated')}
+                    >
+                        Translated
+                    </button>
+                    <button
+                        className={`view-btn ${viewMode === 'original' ? 'active' : ''}`}
+                        onClick={() => setViewMode('original')}
+                    >
+                        Original
+                    </button>
+                    <button
+                        className={`view-btn ${viewMode === 'side-by-side' ? 'active' : ''}`}
+                        onClick={() => setViewMode('side-by-side')}
+                        title="Split Screen"
+                    >
+                        Split
+                    </button>
+                </div>
+
                 {/* Metrics */}
-                <div className="translation-metrics" style={{ marginLeft: 0 }}>
+                <div className="translation-metrics">
                     <div className="metric">
                         <span className="metric-label">Confidence</span>
                         <span className="metric-value confidence-high">
                             {(result.metrics?.averageConfidence * 100).toFixed(1)}%
-                        </span>
-                    </div>
-                    <div className="metric">
-                        <span className="metric-label">Words</span>
-                        <span className="metric-value">
-                            {result.metrics?.translatedWordCount?.toLocaleString()}
                         </span>
                     </div>
                 </div>

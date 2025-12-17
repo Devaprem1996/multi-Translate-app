@@ -1074,6 +1074,36 @@ body {
   gap: var(--space-md);
 }
 
+.view-controls {
+  display: flex;
+  background: var(--bg-tertiary);
+  padding: 4px;
+  border-radius: var(--radius-md);
+  gap: 2px;
+}
+
+.view-btn {
+  background: none;
+  border: none;
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  font-weight: 500;
+}
+
+.view-btn:hover {
+  color: var(--text-primary);
+}
+
+.view-btn.active {
+  background: var(--bg-card);
+  color: var(--primary-color);
+  box-shadow: var(--shadow-sm);
+}
+
 .view-modes {
   display: flex;
   gap: var(--space-xs);
