@@ -10,7 +10,7 @@ export function useTranslation() {
     const [error, setError] = useState(null);
 
     // Smart Chunking Algorithm
-    const smartChunkText = (text, maxSize = 500) => { // Reduced to 500 to be safe with double-encoded URL length
+    const smartChunkText = (text, maxSize = 300) => { // Reduced to 300 to ensure reliable translation of dense Indic scripts
         const chunks = [];
         // Split by paragraphs (double newlines) to preserve structure
         const paragraphs = text.split(/\n\s*\n/);

@@ -3,6 +3,22 @@ import React from 'react';
 
 const FORMATS = [
     {
+        id: 'docx',
+        name: 'Word Document',
+        extension: '.docx',
+        icon: '📝',
+        description: 'Microsoft Word compatible document',
+        mimeType: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+    },
+    {
+        id: 'pdf',
+        name: 'PDF Document',
+        extension: '.pdf',
+        icon: '📕',
+        description: 'Portable Document Format',
+        mimeType: 'application/pdf'
+    },
+    {
         id: 'txt',
         name: 'Plain Text',
         extension: '.txt',
@@ -25,14 +41,6 @@ const FORMATS = [
         icon: '📋',
         description: 'Structured data format for developers',
         mimeType: 'application/json'
-    },
-    {
-        id: 'md',
-        name: 'Markdown',
-        extension: '.md',
-        icon: '📝',
-        description: 'Formatted text with Markdown syntax',
-        mimeType: 'text/markdown'
     }
 ];
 
